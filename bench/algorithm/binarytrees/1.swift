@@ -34,14 +34,15 @@ indirect enum Tree {
     
     var check: UInt32 {
         switch self {
-        case .Node(let left, let right):
-            switch (left, right) {
-            case (.Empty, .Empty):
-                return 1
-            default:
-                return 1 + left.check + right.check
-            }
-        case .Empty:
+        case .Node(.Empty, .Empty):
+            return 1
+        case .Node(let left, .Empty):
+            return 2 + left.check
+        case .Node(.Empty, let right):
+            return 2 + right.check
+        case let .Node(left, right):
+            return 1 + left.check + right.check
+        case .Empty:   
             return 1
         }
     }
